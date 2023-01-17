@@ -2,6 +2,8 @@
 
 `GoFrame` is a modular, powerful, high-performance and enterprise-class application development framework of Golang.
 
+This project demonstrates a restful API web project generated from GoWing CLI tool.
+
 # Features
 - modular, loosely coupled design
 - rich components, out-of-the-box
