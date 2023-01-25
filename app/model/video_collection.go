@@ -19,14 +19,14 @@ type VideoCollection struct {
 
 // VideoCollectionInput 用于Insert、Update、Upsert的输入数据对象结构
 type VideoCollectionInput struct {
-	Id          string      `p:"id" v:"required#视频集ID，字符串格式不能为空" json:"id"`        // 视频集ID，字符串格式
-	Name        string      `p:"name" v:"required#视频集名称不能为空" json:"name"`             // 视频集名称
-	ContentType int         `p:"contentType" v:"required#内容类型不能为空" json:"contentType"` // 内容类型
-	FilterType  int         `p:"filterType" json:"filterType"`                                 // 筛选类型
-	Count       uint32      `p:"count" json:"count"`                                           // 集合内视频数量
-	IsOnline    bool        `p:"isOnline" json:"isOnline"`                                     // 是否上线：0 未上线|1 已上线
-	CreatedAt   *gtime.Time `p:"createdAt" json:"createdAt"`                                   // 创建时间
-	UpdatedAt   *gtime.Time `p:"updatedAt" json:"updatedAt"`                                   // 更新时间
+	Id          interface{} `p:"id" v:"required#视频集ID，字符串格式不能为空" json:"id"` // 视频集ID，字符串格式
+	Name        interface{} `p:"name" json:"name"`                          // 视频集名称
+	ContentType interface{} `p:"contentType" json:"contentType"`            // 内容类型
+	FilterType  interface{} `p:"filterType" json:"filterType"`              // 筛选类型
+	Count       interface{} `p:"count" json:"count"`                        // 集合内视频数量
+	IsOnline    interface{} `p:"isOnline" json:"isOnline"`                  // 是否上线：0 未上线|1 已上线
+	CreatedAt   interface{} `p:"createdAt" json:"createdAt"`                // 创建时间
+	UpdatedAt   interface{} `p:"updatedAt" json:"updatedAt"`                // 更新时间
 }
 
 // VideoCollectionQuery 用于 Query By Example 模式的查询条件数据结构
@@ -68,9 +68,9 @@ type VideoCollectionOneRes struct {
 type VideoCollectionListReq struct {
 	g.Meta `json:"-" path:"/list" method:"get"`
 	VideoCollectionQuery
-	Page     uint32 `d:"1" v:"min:0#分页号码错误" json:"page,omitempty"`           // 当前页码
+	Page     uint32 `d:"1" v:"min:0#分页号码错误" json:"page,omitempty"`          // 当前页码
 	PageSize uint32 `d:"10" v:"max:50#分页数量最大50条" json:"pageSize,omitempty"` // 每页记录数
-	OrderBy  string `json:"orderBy,omitempty"`                                     // 排序方式
+	OrderBy  string `json:"orderBy,omitempty"`                              // 排序方式
 }
 
 // VideoCollectionListRes 分页返回结果
@@ -82,7 +82,7 @@ type VideoCollectionListRes struct {
 
 // VideoCollectionCreateReq 插入操作请求参数
 type VideoCollectionCreateReq struct {
-	g.Meta `json:"-" path:"/" method:"post"`
+	g.Meta `orm:"do:true" json:"-" path:"/" method:"post"`
 	VideoCollectionInput
 }
 
@@ -95,7 +95,7 @@ type VideoCollectionCreateRes struct {
 
 // VideoCollectionUpdateReq 更新操作请求参数
 type VideoCollectionUpdateReq struct {
-	g.Meta `json:"-" path:"/:id" method:"patch"`
+	g.Meta `orm:"do:true" json:"-" path:"/:id" method:"patch"`
 	VideoCollectionInput
 }
 
@@ -107,7 +107,7 @@ type VideoCollectionUpdateRes struct {
 
 // VideoCollectionUpsertReq 更新插入操作请求参数
 type VideoCollectionUpsertReq struct {
-	g.Meta `json:"-" path:"/" method:"put"`
+	g.Meta `orm:"do:true" json:"-" path:"/" method:"put"`
 	VideoCollectionInput
 }
 
